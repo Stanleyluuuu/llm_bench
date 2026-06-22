@@ -187,6 +187,10 @@ class ModelIn(BaseModel):
 
 class MetricOverrides(BaseModel):
     use_ragas: bool = False
+    # Which scoring backend to use for LLM-judge / ragas metrics.
+    # "custom"  → hand-written LLMJudgementService / ragas pipeline (default)
+    # "deepeval" → DeepEval-based implementations (for comparison)
+    engine: Literal["custom", "deepeval"] = "custom"
 
 
 class EvaluateRequest(BaseModel):

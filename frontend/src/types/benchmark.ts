@@ -1,8 +1,12 @@
 export type ModelTab = 'LLM' | 'VLM'
 export type ModelKind = 'builtin' | 'custom'
 
+export type ScoringEngine = 'custom' | 'deepeval'
+
 export interface MetricOverrides {
   use_ragas: boolean
+  // Which scoring backend to use for LLM-judge / ragas metrics.
+  engine?: ScoringEngine
 }
 
 export interface ProjectItem {

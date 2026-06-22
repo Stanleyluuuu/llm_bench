@@ -1,0 +1,10 @@
+/* =================================================================
+   Garmin LLM Benchmark — Design System Entry Point
+   Import this single file to get all tokens and base utilities.
+   ================================================================= */
+
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/animation.css';
+@import './tokens/components.css';

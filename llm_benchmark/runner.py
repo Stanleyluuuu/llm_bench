@@ -108,6 +108,7 @@ class Runner:
                 project_index=i,
                 total=total,
                 use_ragas=bool(metric_overrides and metric_overrides.use_ragas),
+                engine=(metric_overrides.engine if metric_overrides else "custom"),
             )
             if progress_callback:
                 progress_callback("project_done", i + 1, total)
@@ -127,6 +128,7 @@ class Runner:
         project_index: int = 0,
         total: int = 1,
         use_ragas: bool = False,
+        engine: str = "custom",
     ) -> dict[str, ModelRun]:
         try:
             config = self._task_configs[project]
@@ -177,6 +179,7 @@ class Runner:
                 project,
                 specs_by_id,
                 use_ragas=use_ragas,
+                engine=engine,
             )
         except Exception as exc:
             logger.error("Scoring failed project=%s: %s", project, exc, exc_info=True)
