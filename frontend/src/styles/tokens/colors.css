@@ -1,0 +1,106 @@
+/* =================================================================
+   COLOR TOKENS — Garmin LLM Benchmark Design System
+   ================================================================= */
+
+:root {
+  --background:         210 17% 98%; /* @kind color */
+  --card:               0 0% 100%;   /* @kind color */
+  --secondary:          214 22% 93%; /* @kind color */
+  --accent:             214 100% 93%;/* @kind color */
+  --border:             214 16% 85%; /* @kind color */
+  --foreground:         215 41% 17%; /* @kind color */
+  --primary-foreground: 0 0% 98%;    /* @kind color */
+  --muted-foreground:   215 16% 37%; /* @kind color */
+  --muted:              214 22% 93%; /* @kind color */
+  --primary:            216 41% 43%; /* @kind color */
+  --ring:               216 41% 43%; /* @kind color */
+
+  --model-custom:       205 55% 42%; /* @kind color */
+  --model-custom-soft:  205 55% 94%; /* @kind color */
+  --model-builtin:      215 19% 47%; /* @kind color */
+  --model-builtin-soft: 210 40% 96%; /* @kind color */
+
+  --destructive:             0 84% 60%; /* @kind color */
+  --destructive-foreground:  0 0% 100%; /* @kind color */
+  --success:                 160 84% 39%;/* @kind color */
+  --success-foreground:      0 0% 100%; /* @kind color */
+  --warning:                 38 92% 50%; /* @kind color */
+  --warning-foreground:      0 0% 100%; /* @kind color */
+
+  --score-high:              160 84% 39%;/* @kind color */
+  --score-mid:               38 92% 50%; /* @kind color */
+  --score-low:               0 84% 60%;  /* @kind color */
+
+  --bbox-gt:   #00E676; /* @kind color */
+  --bbox-pred: #FF3D7F; /* @kind color */
+
+  --spinner-from:  216 45% 55%; /* @kind color */
+  --spinner-to:    216 25% 78%; /* @kind color */
+  --spinner-edge:  0 0% 100%;   /* @kind color */
+
+  --scrollbar-thumb:       213 18% 78%; /* @kind color */
+  --scrollbar-thumb-hover: 215 16% 62%; /* @kind color */
+  --shimmer:               214 20% 92%; /* @kind color */
+
+  --shadow-color:      215 41% 17%; /* @kind color */
+  --shadow-opacity-sm: 0.04;        /* @kind other */
+  --shadow-opacity-md: 0.08;        /* @kind other */
+
+  --tooltip-bg: 215 41% 17%; /* @kind color */
+  --tooltip-fg: 0 0% 98%;    /* @kind color */
+
+  --glass-panel:  rgba(255,255,255,0.72); /* @kind color */
+  --glass-border: rgba(205,213,224,0.80); /* @kind color */
+
+  --card-hover-ring:    0 0 0 2px hsl(216 41% 43%/0.7); /* @kind other */
+  --card-selected-ring: 0 0 0 2px hsl(216 41% 43%);     /* @kind other */
+}
+
+.dark {
+  --background: 220 32%  6%;  /* @kind color */
+  --card:       220 20% 10%;  /* @kind color */
+  --secondary:  218 28% 11%;  /* @kind color */
+  --accent:     215 22% 20%;  /* @kind color */
+  --border:     215 20% 27%;  /* @kind color */
+
+  --foreground:          210 15% 93%; /* @kind color */
+  --primary-foreground:  222 47% 11%; /* @kind color */
+  --muted-foreground:    220  8% 65%; /* @kind color */
+  --muted:               218 28% 11%; /* @kind color */
+
+  --primary: 216 55% 63%; /* @kind color */
+  --ring:    216 55% 63%; /* @kind color */
+
+  --model-custom:       205 60% 60%; /* @kind color */
+  --model-custom-soft:  205 35% 18%; /* @kind color */
+  --model-builtin:      215 16% 57%; /* @kind color */
+  --model-builtin-soft: 218 28% 16%; /* @kind color */
+
+  --destructive:            0 84% 60%; /* @kind color */
+  --destructive-foreground: 0 0%  98%; /* @kind color */
+  --success:               160 84% 39%;/* @kind color */
+  --success-foreground:     0 0% 100%; /* @kind color */
+  --warning:                38 92% 50%;/* @kind color */
+  --warning-foreground:     0 0% 100%; /* @kind color */
+
+  --spinner-from:  216 50% 60%; /* @kind color */
+  --spinner-to:    216 35% 48%; /* @kind color */
+  --spinner-edge:  220 20% 10%; /* @kind color */
+
+  --scrollbar-thumb:       215 15% 30%; /* @kind color */
+  --scrollbar-thumb-hover: 215 12% 45%; /* @kind color */
+  --shimmer:               220 8%  18%; /* @kind color */
+
+  --shadow-color:      0 0% 0%;   /* @kind color */
+  --shadow-opacity-sm: 0.30;      /* @kind other */
+  --shadow-opacity-md: 0.35;      /* @kind other */
+
+  --tooltip-bg: 220 20% 20%; /* @kind color */
+  --tooltip-fg: 210 15% 93%; /* @kind color */
+
+  --glass-panel:  rgba(30,30,40,0.65);    /* @kind color */
+  --glass-border: rgba(255,255,255,0.08); /* @kind color */
+
+  --card-hover-ring:    0 0 0 2px hsl(216 55% 63%/0.7); /* @kind other */
+  --card-selected-ring: 0 0 0 2px hsl(216 55% 63%);     /* @kind other */
+}

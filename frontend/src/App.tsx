@@ -22,6 +22,7 @@ export default function App() {
   const [guardOpen, setGuardOpen] = useState(false)
   const [historyOpen, setHistoryOpen] = useState(false)
   const [useSmartRouting, setUseSmartRouting] = useState(true)
+  const [scoringEngine, setScoringEngine] = useState<'custom' | 'deepeval'>('custom')
   const [manualMetrics, setManualMetrics] = useState({
     accuracy: true,
     completeness: true,
@@ -107,10 +108,11 @@ export default function App() {
 
   // ── Metric overrides derived from advanced settings ─────────────────────────
   const metricOverrides = useMemo((): MetricOverrides | undefined => {
-    if (useSmartRouting) return undefined
-    const useRagas = manualMetrics.ragas_faithfulness || manualMetrics.ragas_answer_relevancy
-    return { use_ragas: useRagas }
-  }, [useSmartRouting, manualMetrics])
+    const useRagas = !useSmartRouting && (manualMetrics.ragas_faithfulness || manualMetrics.ragas_answer_relevancy)
+    // engine applies regardless of smart routing so both backends are comparable.
+    if (useSmartRouting && scoringEngine === 'custom') return undefined
+    return { use_ragas: useRagas, engine: scoringEngine }
+  }, [useSmartRouting, manualMetrics, scoringEngine])
 
   // ── Evaluate ─────────────────────────────────────────────────────────────────
   const doEvaluate = useCallback(async () => {
@@ -175,6 +177,8 @@ export default function App() {
         validationError={validationError}
         useSmartRouting={useSmartRouting}
         manualMetrics={manualMetrics}
+        scoringEngine={scoringEngine}
+        onScoringEngineChange={setScoringEngine}
         onSmartRoutingChange={setUseSmartRouting}
         onManualMetricsChange={(key) => setManualMetrics(prev => ({ ...prev, [key]: !prev[key] }))}
         onToggleProject={toggleProject}

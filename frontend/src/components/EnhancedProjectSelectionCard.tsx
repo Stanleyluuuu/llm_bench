@@ -22,6 +22,8 @@ interface EnhancedProjectSelectionCardProps {
     ragas_faithfulness: boolean
     ragas_answer_relevancy: boolean
   }
+  scoringEngine: 'custom' | 'deepeval'
+  onScoringEngineChange: (v: 'custom' | 'deepeval') => void
   onSmartRoutingChange: (v: boolean) => void
   onManualMetricsChange: (key: 'accuracy' | 'completeness' | 'relevance_clarity' | 'ragas_faithfulness' | 'ragas_answer_relevancy') => void
   onToggleProject: (name: string) => void
@@ -198,7 +200,7 @@ function ProjectGrid({
 
 export function EnhancedProjectSelectionCard({
   llmProjects, vlmProjects, selectedProjects, loading, hasSelection: _hasSelection, hasVlmModels, isEvaluating: _isEvaluating,
-  validationError, useSmartRouting, manualMetrics, onSmartRoutingChange, onManualMetricsChange,
+  validationError, useSmartRouting, manualMetrics, scoringEngine, onScoringEngineChange, onSmartRoutingChange, onManualMetricsChange,
   onToggleProject, onSelectAll, onReload,
 }: EnhancedProjectSelectionCardProps) {
   const [searchTerm, setSearchTerm] = useState('')
@@ -274,6 +276,25 @@ export function EnhancedProjectSelectionCard({
                 ].join(' ')}
               />
             </button>
+          </div>
+          {/* 評分引擎切換：手寫 vs DeepEval（兩者可比較） */}
+          <div className="rounded-md bg-muted/60 p-3 space-y-2">
+            <div>
+              <p className="text-sm font-medium text-foreground">評分引擎</p>
+              <p className="text-xs text-muted-foreground mt-0.5">選擇 LLM judge / RAGAS 的計分後端，可比較自寫版本與 DeepEval 套件結果</p>
+            </div>
+            <div className="segmented-control">
+              {(['custom', 'deepeval'] as const).map((eng) => (
+                <button
+                  key={eng}
+                  type="button"
+                  data-active={scoringEngine === eng}
+                  onClick={() => onScoringEngineChange(eng)}
+                >
+                  {eng === 'custom' ? '自寫版本' : 'DeepEval'}
+                </button>
+              ))}
+            </div>
           </div>
           {/* 手動指標 */}
           <fieldset

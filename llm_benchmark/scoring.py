@@ -9,6 +9,8 @@ from datasets import Dataset
 from ragas import evaluate as ragas_evaluate
 from ragas.metrics import answer_correctness, answer_similarity
 
+from llm_benchmark.metrics.deepeval_judgement import DeepEvalJudgementService
+from llm_benchmark.metrics.deepeval_ragas import evaluate_rag_metrics_deepeval
 from llm_benchmark.metrics.llm_judgement import LLMJudgementService
 from llm_benchmark.settings import app_settings
 
@@ -96,6 +98,45 @@ def _normalize_data(data_dict: dict) -> dict:
         output["answer"] = [_normalize_text(a) for a in output["answer"]]
     if "ground_truth" in output:
         output["ground_truth"] = [_normalize_text(g) for g in output["ground_truth"]]
+
+    return output
+
+
+def score_ragas_deepeval(results_by_model: dict[str, dict]) -> dict[str, dict[str, Any]]:
+    """DeepEval counterpart of :func:`score_ragas`.
+
+    Computes faithfulness + answer_relevancy per sample via DeepEval and
+    aggregates into the same flat ``{metric: mean, per_sample_metric: [...]}``
+    shape so the frontend can render either engine's output.
+    """
+    output: dict[str, dict[str, Any]] = {}
+    for model_id, result in results_by_model.items():
+        answers = result.get("answer", [])
+        if not answers:
+            output[model_id] = {}
+            continue
+        questions = result.get("question", [])
+        ground_truths = result.get("ground_truth", [])
+        contexts_list = result.get("contexts", [])
+        per_metric: dict[str, list[float]] = {}
+        for idx, answer in enumerate(answers):
+            q = questions[idx] if idx < len(questions) else ""
+            gt = ground_truths[idx] if idx < len(ground_truths) else ""
+            ctx = contexts_list[idx] if idx < len(contexts_list) else []
+            if isinstance(ctx, str):
+                ctx = [ctx]
+            scores = evaluate_rag_metrics_deepeval(
+                question=q, answer=_normalize_text(str(answer)), ground_truth=_normalize_text(str(gt)), contexts=ctx
+            )
+            for name, val in scores.items():
+                per_metric.setdefault(name, []).append(val)
+
+        flat: dict[str, Any] = {}
+        for name, vals in per_metric.items():
+            if vals:
+                flat[name] = sum(vals) / len(vals)
+                flat[f"per_sample_{name}"] = vals
+        output[model_id] = flat
 
     return output
 
@@ -271,7 +312,9 @@ def score_iou(
     return scores
 
 
-def score_llm_judge(results_by_model: dict[str, dict], *, use_ragas: bool = False) -> dict[str, dict[str, Any]]:
+def score_llm_judge(
+    results_by_model: dict[str, dict], *, use_ragas: bool = False, engine: str = "custom"
+) -> dict[str, dict[str, Any]]:
     if not results_by_model:
         return {}
 
@@ -284,7 +327,7 @@ def score_llm_judge(results_by_model: dict[str, dict], *, use_ragas: bool = Fals
     model_ids = list(results_by_model.keys())
     answers_list = [results_by_model[model_id].get("answer", []) for model_id in model_ids]
 
-    svc = LLMJudgementService()
+    svc = DeepEvalJudgementService() if engine == "deepeval" else LLMJudgementService()
     comparison = svc.compare_models(
         questions=questions,
         ground_truths=ground_truths,
@@ -528,6 +571,7 @@ def dispatch_scoring(
     specs_by_id: dict[str, ModelSpec],
     *,
     use_ragas: bool = False,
+    engine: str = "custom",
 ) -> dict[str, dict[str, Any]]:
     if not results_by_model:
         return {}
@@ -539,9 +583,11 @@ def dispatch_scoring(
     elif metrics == "OutputParser":
         return score_output_parser(results_by_model, project_config)
     elif metrics == "ragas":
+        if engine == "deepeval":
+            return score_ragas_deepeval(results_by_model)
         return score_ragas(results_by_model)
     elif metrics == "llm":
-        return score_llm_judge(results_by_model, use_ragas=use_ragas)
+        return score_llm_judge(results_by_model, use_ragas=use_ragas, engine=engine)
     elif metrics == "exact_match":
         return score_exact_match(results_by_model, project_name=project_name)
 
