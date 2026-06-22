@@ -223,7 +223,8 @@ export default function App() {
       <Toaster />
 
       {/* Sticky action bar — always visible regardless of scroll position */}
-      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-border bg-card/95 backdrop-blur-sm py-3 px-4 sm:px-6 flex items-center justify-between gap-3 shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-border bg-card/95 backdrop-blur-sm shadow-lg">
+      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
         {/* Left: selection summary */}
         <div className="flex items-center gap-4 text-sm text-muted-foreground min-w-0 flex-wrap">
           {hasSelection && (
@@ -274,6 +275,7 @@ export default function App() {
         >
           {evaluating ? '評估中…' : '開始評估'}
         </button>
+        </div>
         </div>
       </div>
     </>
