@@ -1,0 +1,41 @@
+<!-- @dsCard group="Colors" viewport="700x110" name="Semantic — Status" subtitle="Success (emerald), Warning (amber), Error (red)" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{margin:0;padding:16px;background:hsl(var(--background));font-family:var(--font-sans);display:flex;gap:12px}
+    .group{flex:1;display:flex;flex-direction:column;gap:6px}
+    .swatch{height:52px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center}
+    .soft{height:26px;border-radius:var(--radius-sm);display:flex;align-items:center;padding:0 8px}
+    .lbl{font-size:10px;font-family:var(--font-mono)}
+  </style>
+</head>
+<body>
+  <div class="group">
+    <div class="swatch" style="background:hsl(var(--success))">
+      <span class="lbl" style="color:hsl(var(--success-foreground))">--success · #10B981</span>
+    </div>
+    <div class="soft" style="background:hsl(var(--success)/.12);border:1px solid hsl(var(--success)/.3)">
+      <span class="lbl" style="color:hsl(160 70% 28%)">success/12 · text on soft</span>
+    </div>
+  </div>
+  <div class="group">
+    <div class="swatch" style="background:hsl(var(--warning))">
+      <span class="lbl" style="color:#fff">--warning · #F59E0B</span>
+    </div>
+    <div class="soft" style="background:hsl(var(--warning)/.12);border:1px solid hsl(var(--warning)/.3)">
+      <span class="lbl" style="color:hsl(38 80% 30%)">warning/12 · text on soft</span>
+    </div>
+  </div>
+  <div class="group">
+    <div class="swatch" style="background:hsl(var(--destructive))">
+      <span class="lbl" style="color:hsl(var(--destructive-foreground))">--destructive · #EF4444</span>
+    </div>
+    <div class="soft" style="background:hsl(var(--destructive)/.12);border:1px solid hsl(var(--destructive)/.3)">
+      <span class="lbl" style="color:hsl(0 72% 38%)">destructive/12 · text on soft</span>
+    </div>
+  </div>
+</body>
+</html>

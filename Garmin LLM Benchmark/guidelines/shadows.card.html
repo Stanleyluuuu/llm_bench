@@ -1,0 +1,19 @@
+<!-- @dsCard group="Spacing" viewport="700x140" name="Shadow System" subtitle="Four elevation levels — opacity tokens adapt to light and dark" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{margin:0;padding:24px 20px;background:hsl(var(--secondary));font-family:var(--font-sans);display:flex;gap:16px;align-items:center}
+    .card{flex:1;height:80px;background:hsl(var(--card));border-radius:var(--radius-lg);border:1px solid hsl(var(--border));display:flex;align-items:flex-end;padding:8px 10px}
+    .lbl{font-size:10px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));line-height:1.3}
+  </style>
+</head>
+<body>
+  <div class="card" style="box-shadow:var(--shadow-sm)"><span class="lbl">--shadow-sm<br>subtle lift</span></div>
+  <div class="card" style="box-shadow:var(--shadow-md)"><span class="lbl">--shadow-md<br>hover state</span></div>
+  <div class="card" style="box-shadow:var(--shadow-lg)"><span class="lbl">--shadow-lg<br>popover</span></div>
+  <div class="card" style="box-shadow:var(--shadow-xl)"><span class="lbl">--shadow-xl<br>modal / dialog</span></div>
+</body>
+</html>

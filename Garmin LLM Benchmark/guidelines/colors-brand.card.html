@@ -1,0 +1,30 @@
+<!-- @dsCard group="Colors" viewport="700x110" name="Brand — Indigo" subtitle="Primary indigo-600 (#4f46e5) + alpha ramps" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{margin:0;padding:16px;background:hsl(var(--background));font-family:var(--font-sans);display:flex;gap:8px}
+    .sw{flex:1;min-height:78px;border-radius:var(--radius-md);display:flex;flex-direction:column;justify-content:flex-end;padding:8px 10px}
+    .lbl{font-size:10px;font-family:var(--font-mono);line-height:1.4}
+  </style>
+</head>
+<body>
+  <div class="sw" style="background:hsl(var(--primary))">
+    <span class="lbl" style="color:hsl(var(--primary-foreground))">--primary<br>#4f46e5</span>
+  </div>
+  <div class="sw" style="background:hsl(var(--primary)/.7)">
+    <span class="lbl" style="color:#fff">primary/70</span>
+  </div>
+  <div class="sw" style="background:hsl(var(--primary)/.2);border:1px solid hsl(var(--border))">
+    <span class="lbl" style="color:hsl(var(--foreground))">primary/20</span>
+  </div>
+  <div class="sw" style="background:hsl(var(--primary)/.1);border:1px solid hsl(var(--border))">
+    <span class="lbl" style="color:hsl(var(--foreground))">primary/10</span>
+  </div>
+  <div class="sw" style="background:hsl(var(--primary));outline:3px solid hsl(var(--ring));outline-offset:2px">
+    <span class="lbl" style="color:hsl(var(--primary-foreground))">--ring</span>
+  </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+/* =================================================================
+   ANIMATION TOKENS — Garmin LLM Benchmark Design System
+   ================================================================= */
+
+:root {
+  --ease-spring:  cubic-bezier(0.16, 1, 0.3, 1);  /* @kind other */
+  --ease-smooth:  cubic-bezier(0.4, 0, 0.2, 1);   /* @kind other */
+  --ease-bounce:  cubic-bezier(0.36, 0.07, 0.19, 0.97); /* @kind other */
+  --duration-fast:   0.15s; /* @kind other */
+  --duration-base:   0.18s; /* @kind other */
+  --duration-medium: 0.25s; /* @kind other */
+  --duration-slow:   0.5s;  /* @kind other */
+}
+
+@keyframes fadeIn      { from{opacity:0;transform:translateY(-3px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slideUpFade { from{opacity:0;transform:translateY(6px)}  to{opacity:1;transform:translateY(0)} }
+@keyframes scaleIn     { from{opacity:0;transform:scale(0.97)}      to{opacity:1;transform:scale(1)}      }
+@keyframes shimmer     { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+@keyframes barGrow     { from{width:0} }
+@keyframes progressFill{ from{transform:scaleX(0);transform-origin:left} to{transform:scaleX(1);transform-origin:left} }
+@keyframes statusPulse { 0%,100%{transform:scale(1);opacity:.4} 50%{transform:scale(1.8);opacity:0} }
+@keyframes pulseGlow   { 0%,100%{box-shadow:0 0 0 0 hsl(var(--primary)/.4)} 50%{box-shadow:0 0 0 8px hsl(var(--primary)/0)} }
+
+.animate-fade-in  { animation: fadeIn      var(--duration-base)   var(--ease-spring) forwards; }
+.animate-slide-up { animation: slideUpFade var(--duration-base)   var(--ease-spring) forwards; }
+.animate-scale-in { animation: scaleIn     var(--duration-medium) var(--ease-spring) forwards; }
+.animate-bar-grow { animation: barGrow     var(--duration-slow)   var(--ease-spring) forwards; }
+.animate-pulse-glow { animation: pulseGlow 2s var(--ease-smooth) infinite; }
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg,transparent 0%,hsl(var(--shimmer)) 50%,transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+.hover-lift {
+  transition: transform var(--duration-base) var(--ease-spring), box-shadow var(--duration-base) var(--ease-smooth);
+  will-change: transform;
+}
+.hover-lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,.animate-slide-up,.animate-scale-in,.animate-bar-grow,.skeleton-shimmer,.hover-lift {
+    animation:none!important; opacity:1!important; transform:none!important; transition:none!important;
+  }
+}

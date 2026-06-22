@@ -1,0 +1,30 @@
+<!-- @dsCard group="Colors" viewport="700x110" name="Surface Palette" subtitle="Background, card, secondary, accent, border — light mode" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{margin:0;padding:16px;background:hsl(220 20% 88%);font-family:var(--font-sans);display:flex;gap:8px}
+    .sw{flex:1;min-height:78px;border-radius:var(--radius-md);display:flex;flex-direction:column;justify-content:flex-end;padding:8px 10px;border:1px solid hsl(var(--border))}
+    .lbl{font-size:10px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));line-height:1.4}
+  </style>
+</head>
+<body>
+  <div class="sw" style="background:hsl(var(--background))">
+    <span class="lbl">--background<br>#F9FAFB</span>
+  </div>
+  <div class="sw" style="background:hsl(var(--card));box-shadow:var(--shadow-sm)">
+    <span class="lbl">--card<br>#FFFFFF</span>
+  </div>
+  <div class="sw" style="background:hsl(var(--secondary))">
+    <span class="lbl">--secondary<br>#E8EDF5</span>
+  </div>
+  <div class="sw" style="background:hsl(var(--accent))">
+    <span class="lbl">--accent<br>#DBEAFE</span>
+  </div>
+  <div class="sw" style="background:hsl(var(--border));border:none">
+    <span class="lbl" style="color:#fff">--border<br>#CDD5E0</span>
+  </div>
+</body>
+</html>

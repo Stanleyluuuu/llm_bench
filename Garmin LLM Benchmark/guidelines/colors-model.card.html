@@ -1,0 +1,36 @@
+<!-- @dsCard group="Colors" viewport="700x110" name="Model Source Colors" subtitle="Builtin (slate) vs Custom (indigo) badge palette" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{margin:0;padding:16px;background:hsl(var(--background));font-family:var(--font-sans);display:flex;gap:16px;align-items:center}
+    .group{display:flex;flex-direction:column;gap:8px;flex:1}
+    .swatch{height:52px;border-radius:var(--radius-md);display:flex;align-items:center;padding:0 14px;gap:8px}
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:11px;font-family:var(--font-mono);font-weight:500}
+    .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+    .lbl{font-size:11px;font-family:var(--font-mono);color:hsl(var(--muted-foreground))}
+  </style>
+</head>
+<body>
+  <div class="group">
+    <div class="swatch" style="background:hsl(var(--model-builtin-soft));border:1px solid hsl(var(--border))">
+      <span class="badge" style="background:hsl(var(--model-builtin-soft));color:hsl(var(--model-builtin))">
+        <span class="dot"></span>Builtin
+      </span>
+      <span class="lbl">--model-builtin · slate-500</span>
+    </div>
+    <div style="height:6px;border-radius:9999px;background:hsl(var(--model-builtin));width:70%"></div>
+  </div>
+  <div class="group">
+    <div class="swatch" style="background:hsl(var(--model-custom-soft));border:1px solid hsl(var(--border))">
+      <span class="badge" style="background:hsl(var(--model-custom-soft));color:hsl(var(--model-custom))">
+        <span class="dot"></span>Custom
+      </span>
+      <span class="lbl">--model-custom · indigo-soft</span>
+    </div>
+    <div style="height:6px;border-radius:9999px;background:hsl(var(--model-custom));width:70%"></div>
+  </div>
+</body>
+</html>

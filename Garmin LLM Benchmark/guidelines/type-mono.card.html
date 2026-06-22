@@ -1,0 +1,47 @@
+<!-- @dsCard group="Type" viewport="700x200" name="Mono — JetBrains Mono" subtitle="Metrics, scores, code, timestamps — tabular nums" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{margin:0;padding:16px 20px;background:hsl(var(--background));font-family:var(--font-sans)}
+    .row{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid hsl(var(--border));padding:5px 0}
+    .row:last-child{border-bottom:none}
+    .token{font-size:10px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));width:100px;flex-shrink:0}
+    .meta{font-size:10px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));margin-left:auto}
+  </style>
+</head>
+<body>
+  <div class="row">
+    <span class="token">hero score</span>
+    <span style="font-family:var(--font-mono);font-size:var(--text-3xl);font-weight:800;color:hsl(var(--score-high));font-variant-numeric:tabular-nums">92.4%</span>
+    <span class="meta">30px · 800 · emerald</span>
+  </div>
+  <div class="row">
+    <span class="token">metric value</span>
+    <span style="font-family:var(--font-mono);font-size:var(--text-lg);font-weight:700;color:hsl(var(--foreground));font-variant-numeric:tabular-nums">4.2s avg · 1024 tok</span>
+    <span class="meta">18px · 700</span>
+  </div>
+  <div class="row">
+    <span class="token">model name</span>
+    <span style="font-family:var(--font-mono);font-size:var(--text-sm);font-weight:600;color:hsl(var(--foreground))">llm_large · Qwen3-72B</span>
+    <span class="meta">14px · 600</span>
+  </div>
+  <div class="row">
+    <span class="token">W/T/L row</span>
+    <span style="font-family:var(--font-mono);font-size:var(--text-xs);font-variant-numeric:tabular-nums">
+      <span style="color:hsl(160 70%35%)">12W</span> /
+      <span style="color:hsl(200 70%40%)">3T</span> /
+      <span style="color:hsl(0 70%45%)">5L</span>
+      <span style="color:hsl(var(--muted-foreground));margin-left:8px">60% 勝率</span>
+    </span>
+    <span class="meta">12px tabular</span>
+  </div>
+  <div class="row">
+    <span class="token">run id</span>
+    <span style="font-family:var(--font-mono);font-size:10px;color:hsl(var(--muted-foreground));background:hsl(var(--secondary));padding:2px 6px;border-radius:4px;border:1px solid hsl(var(--border))">run_20250618_143021</span>
+    <span class="meta">10px · code pill</span>
+  </div>
+</body>
+</html>

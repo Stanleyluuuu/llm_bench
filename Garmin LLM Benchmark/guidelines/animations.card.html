@@ -1,0 +1,39 @@
+<!-- @dsCard group="Spacing" viewport="700x180" name="Motion & Animation" subtitle="Spring easing, skeleton shimmer, hover-lift, fade-in" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{margin:0;padding:16px;background:hsl(var(--background));font-family:var(--font-sans);display:flex;gap:12px;flex-wrap:wrap}
+    .cell{background:hsl(var(--card));border:1px solid hsl(var(--border));border-radius:var(--radius-md);padding:12px;display:flex;flex-direction:column;gap:6px;flex:1;min-width:140px}
+    .title{font-size:10px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));text-transform:uppercase;letter-spacing:.05em}
+    .demo{background:hsl(var(--secondary));border-radius:var(--radius-sm);height:28px}
+  </style>
+</head>
+<body>
+  <div class="cell">
+    <span class="title">skeleton-shimmer</span>
+    <div class="demo skeleton-shimmer"></div>
+    <div class="demo skeleton-shimmer" style="width:60%"></div>
+  </div>
+  <div class="cell hover-lift" style="cursor:pointer">
+    <span class="title">hover-lift</span>
+    <div style="font-size:11px;color:hsl(var(--muted-foreground))">Hover to lift ↑ -2px + shadow-md</div>
+    <div style="font-size:10px;font-family:var(--font-mono);color:hsl(var(--primary))">0.18s spring</div>
+  </div>
+  <div class="cell animate-fade-in">
+    <span class="title">animate-fade-in</span>
+    <div style="font-size:11px;color:hsl(var(--muted-foreground))">Mounts from opacity 0 + Y -3px</div>
+    <div style="font-size:10px;font-family:var(--font-mono);color:hsl(var(--primary))">0.18s spring</div>
+  </div>
+  <div class="cell">
+    <span class="title">easing tokens</span>
+    <div style="font-size:10px;font-family:var(--font-mono);color:hsl(var(--foreground));line-height:1.8">
+      spring (0.16,1,0.3,1)<br>
+      smooth (0.4,0,0.2,1)<br>
+      bounce (0.36,0.07,…)
+    </div>
+  </div>
+</body>
+</html>

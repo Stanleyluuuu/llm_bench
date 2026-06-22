@@ -1,0 +1,21 @@
+<!-- @dsCard group="Spacing" viewport="700x120" name="Border Radius" subtitle="sm (4px) through full (pill) — used consistently across all components" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{margin:0;padding:20px 16px;background:hsl(var(--background));font-family:var(--font-sans);display:flex;gap:12px;align-items:center}
+    .box{width:80px;height:64px;background:hsl(var(--primary)/.15);border:2px solid hsl(var(--primary)/.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+    .lbl{font-size:10px;font-family:var(--font-mono);color:hsl(var(--primary));text-align:center;line-height:1.3}
+  </style>
+</head>
+<body>
+  <div class="box" style="border-radius:var(--radius-sm)"><span class="lbl">--radius-sm<br>4px</span></div>
+  <div class="box" style="border-radius:var(--radius-md)"><span class="lbl">--radius-md<br>6px</span></div>
+  <div class="box" style="border-radius:var(--radius-lg)"><span class="lbl">--radius-lg<br>8px</span></div>
+  <div class="box" style="border-radius:var(--radius-xl)"><span class="lbl">--radius-xl<br>12px</span></div>
+  <div class="box" style="border-radius:var(--radius-2xl)"><span class="lbl">--radius-2xl<br>16px</span></div>
+  <div class="box" style="border-radius:var(--radius-full);width:64px"><span class="lbl">--radius-full<br>pill</span></div>
+</body>
+</html>

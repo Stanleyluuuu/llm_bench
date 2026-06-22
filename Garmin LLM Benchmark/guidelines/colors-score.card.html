@@ -1,0 +1,32 @@
+<!-- @dsCard group="Colors" viewport="700x110" name="Score Bands" subtitle="Three-tier color scale for benchmark results" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{margin:0;padding:16px;background:hsl(var(--background));font-family:var(--font-sans);display:flex;gap:12px;align-items:stretch}
+    .band{flex:1;border-radius:var(--radius-md);padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+    .score{font-size:1.5rem;font-family:var(--font-mono);font-weight:800;font-variant-numeric:tabular-nums}
+    .bar{height:6px;border-radius:9999px}
+    .label{font-size:10px;font-family:var(--font-mono);opacity:.7}
+  </style>
+</head>
+<body>
+  <div class="band" style="background:hsl(var(--score-high)/.1);border:1px solid hsl(var(--score-high)/.3)">
+    <span class="score" style="color:hsl(160 70% 28%)">92.4%</span>
+    <div class="bar" style="background:hsl(var(--score-high));width:92%"></div>
+    <span class="label" style="color:hsl(160 70% 28%)">--score-high · ≥ 85%</span>
+  </div>
+  <div class="band" style="background:hsl(var(--score-mid)/.1);border:1px solid hsl(var(--score-mid)/.3)">
+    <span class="score" style="color:hsl(38 80% 30%)">61.2%</span>
+    <div class="bar" style="background:hsl(var(--score-mid));width:61%"></div>
+    <span class="label" style="color:hsl(38 80% 30%)">--score-mid · 40–84%</span>
+  </div>
+  <div class="band" style="background:hsl(var(--score-low)/.1);border:1px solid hsl(var(--score-low)/.3)">
+    <span class="score" style="color:hsl(0 72% 38%)">23.7%</span>
+    <div class="bar" style="background:hsl(var(--score-low));width:24%"></div>
+    <span class="label" style="color:hsl(0 72% 38%)">--score-low · &lt; 40%</span>
+  </div>
+</body>
+</html>

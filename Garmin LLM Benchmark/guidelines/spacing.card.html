@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Spacing Scale" subtitle="4-pt grid: --space-1 (4px) through --space-16 (64px)" -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{margin:0;padding:16px;background:hsl(var(--background));font-family:var(--font-sans);display:flex;flex-direction:column;gap:6px}
+    .row{display:flex;align-items:center;gap:8px}
+    .bar{background:hsl(var(--primary)/.6);height:18px;border-radius:var(--radius-sm);flex-shrink:0}
+    .lbl{font-size:10px;font-family:var(--font-mono);color:hsl(var(--muted-foreground));white-space:nowrap}
+  </style>
+</head>
+<body>
+  <div class="row"><div class="bar" style="width:var(--space-1)"></div><span class="lbl">--space-1 · 4px</span></div>
+  <div class="row"><div class="bar" style="width:var(--space-2)"></div><span class="lbl">--space-2 · 8px</span></div>
+  <div class="row"><div class="bar" style="width:var(--space-3)"></div><span class="lbl">--space-3 · 12px</span></div>
+  <div class="row"><div class="bar" style="width:var(--space-4)"></div><span class="lbl">--space-4 · 16px</span></div>
+  <div class="row"><div class="bar" style="width:var(--space-6)"></div><span class="lbl">--space-6 · 24px</span></div>
+  <div class="row"><div class="bar" style="width:var(--space-8)"></div><span class="lbl">--space-8 · 32px</span></div>
+  <div class="row"><div class="bar" style="width:var(--space-12)"></div><span class="lbl">--space-12 · 48px</span></div>
+  <div class="row"><div class="bar" style="width:var(--space-16)"></div><span class="lbl">--space-16 · 64px</span></div>
+</body>
+</html>
