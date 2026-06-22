@@ -718,12 +718,15 @@ export function BenchmarkModelsCard({ allModels, onToggle, onAdd, onRemove, onUp
 
   return (
     <div className="bg-card border border-border rounded-md overflow-hidden">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-6 py-4 border-b border-border gap-3">
-        <h2 className="text-base font-semibold text-foreground">Benchmark 模型</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-5 py-3 border-b border-border gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <h2 className="text-base font-semibold text-foreground flex-shrink-0">Benchmark 模型</h2>
+          <span className="text-xs text-muted-foreground hidden sm:block">點模型右側可展開端點 / 連結等細節</span>
+        </div>
         <AddModelDialog onAdd={onAdd} />
       </div>
 
-      <div className="p-4 sm:p-6 space-y-5">
+      <div className="p-4 sm:p-5 space-y-4">
         <ModelGroup type="LLM" models={llmModels} onToggle={onToggle} onRemove={onRemove} onUpdate={onUpdate} />
         <Separator />
         <ModelGroup type="VLM" models={vlmModels} onToggle={onToggle} onRemove={onRemove} onUpdate={onUpdate} />
