@@ -1,0 +1,19 @@
+x-llm_benchmark-config:
+  &llm_benchmark-env
+  LLM_BENCHMARK_ENV: stage
+  LLM_BENCHMARK_VERSION: ${TAG:-test}
+
+services:
+  api-backend:
+    image: linxpa-peprdharbor00.garmin.com/ai/llm_benchmark:${TAG:-test}
+    container_name: LLM-Benchmark-devel
+    command: python3 -m uvicorn llm_benchmark.service.app:create_app --factory --host 0.0.0.0 --port 8080
+    environment:
+      <<: *llm_benchmark-env
+    working_dir: /app
+    volumes:
+      - ./llm_benchmark:/app/llm_benchmark
+    ports:
+      - 8080:8080
+    tty: true
+    restart: unless-stopped

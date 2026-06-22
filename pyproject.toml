@@ -1,0 +1,111 @@
+[build-system]
+requires = ["setuptools", "setuptools_scm[toml]"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "LLM-Benchmark"
+dynamic = ["version"]
+description = "LLM Benchmark Platform for comparing LLM, VLM, Flowise, and custom REST model variants"
+requires-python = ">=3.10"
+readme = "README.md"
+authors = [
+    { name = "Lu, StanleyKW", email = "StanleyKW.Lu@garmin.com" },
+    { name = "Chang, AlexCC", email = "AlexCC.Chang@garmin.com" },
+]
+maintainers = [
+    { name = "Lu, StanleyKW", email = "StanleyKW.Lu@garmin.com" },
+    { name = "Chang, AlexCC", email = "AlexCC.Chang@garmin.com" },
+]
+dependencies = [
+    "ragas",
+    "datasets",
+    "pandas",
+    "Pillow",
+    "PyYAML",
+    "requests",
+    "langchain==0.3.25",
+    "langchain-openai",
+    "devtools[imageio]",
+    "dynaconf",
+    "structlog",
+    "pytz",
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic",
+    "jsonschema>=4.0",
+    "dslog[all]",
+    "openai",
+]
+
+[project.optional-dependencies]
+serve = [
+    "gunicorn",
+]
+test = [
+    "pytest",
+    "pytest-mock",
+    "pytest-cov",
+    "coverage[toml]",
+    "pytest-env",
+    "pytest-asyncio",
+    "locust",
+    "sentrux",
+]
+
+[project.urls]
+Repository = "https://github.com/garmin-tw-mfg-eng/LLM-Benchmark"
+
+[tool.setuptools]
+packages.find.include = ["llm_benchmark"]
+
+[tool.setuptools_scm]
+tag_regex = "^release/AI/PROD/llm_benchmark/(?P<version>[0-9]+\\.[0-9]+\\.[0-9]+)$"
+fallback_version = "0.0.0"
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle (error)
+    "F",   # pyflakes
+    "B",   # bugbear
+    "B9",
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "I",   # isort
+    "UP",  # pyupgrade
+    "PIE", # flake8-pie
+    "PGH", # pygrep-hooks
+    "PYI", # flake8-pyi
+    "RUF",
+]
+ignore = ["B011", "E501", "B008", "RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pytest.ini_options]
+env = [
+    "DSLOG_PROJECT=llm_benchmark",
+    "LLM_BENCHMARK_ENV=test",
+]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["llm_benchmark"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "return NotImplemented",
+    "raise NotImplementedError",
+    "pragma: no cover",
+    "pragma: deprecated",
+    "pragma: develop",
+    "pass",
+    "if __name__ == \"__main__\":",
+]

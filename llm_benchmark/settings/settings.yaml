@@ -1,0 +1,105 @@
+dynaconf_merge: true
+
+default:
+  project: LLM-Benchmark
+  version: 0.0.0
+  api_key_name: ""
+  service:
+    virtual_path: ""
+  security:
+    api_key: ""
+  logging:
+    endpoints:
+      console:
+        level: info
+      kafka:
+        level: info
+  providers:
+    llm_large:
+      api_base: "https://ai-k8s.garmin.com/kong-proxy/llm-large/v1"
+      name: "LLM-Large"
+      max_token: 100000
+      model_space: absolute
+    llm_small:
+      api_base: "https://ai-k8s.garmin.com/kong-proxy/llm-small/v1"
+      name: "LLM-Small"
+      max_token: 2048
+      model_space: absolute
+    vlm_large:
+      api_base: "https://ai-k8s.garmin.com/kong-proxy/vlm-large/v1"
+      name: "VLM-Large"
+      max_token: 4096
+      resize: null
+      model_space: normalized
+    vlm_small:
+      api_base: "https://ai-k8s.garmin.com/kong-proxy/vlm-small/v1"
+      name: "VLM-Small"
+      max_token: 2048
+      resize: null
+      model_space: absolute
+    embedding:
+      url: "https://ai-k8s.garmin.com/kong-proxy/bge-m3-embedding/v1/embeddings"
+      name: "bge-m3"
+      dim: 1024
+  flowise:
+    default_base_url: "https://linxpa-dl02.garmin.com:5860"
+    default_override_config: {}
+    request_timeout: 360
+    max_retries: 3
+    retry_delay: 5
+    verify_ssl: true
+
+stage:
+  logging:
+    endpoints:
+      console:
+        level: debug
+      kafka:
+        broker:
+          urls:
+            - linxta-rk9pekafka00.garmin.com:9092
+            - linxta-rk9pekafka01.garmin.com:9092
+            - linxta-rk9pekafka02.garmin.com:9092
+          user: pids
+          topic: dslog-avro
+        schema_registry:
+          url: https://linxta-pehaproxy00.garmin.com:8085
+        level: debug
+
+production:
+  logging:
+    endpoints:
+      console:
+        level: info
+      kafka:
+        broker:
+          urls:
+            - linxpa-rk9pekafka00.garmin.com:9092
+            - linxpa-rk9pekafka01.garmin.com:9092
+            - linxpa-rk9pekafka02.garmin.com:9092
+            - linxpa-rk9pekafka03.garmin.com:9092
+            - linxpa-rk9pekafka04.garmin.com:9092
+            - linxpa-rk9pekafka05.garmin.com:9092
+            - linxpa-rk9pekafka06.garmin.com:9092
+          user: pids
+          topic: dslog-avro
+        schema_registry:
+          url: https://linxpa-pehaproxy00.garmin.com:8085
+        level: info
+
+test:
+  logging:
+    endpoints:
+      console:
+        level: debug
+      kafka:
+        broker:
+          urls:
+            - linxta-rk9pekafka00.garmin.com:9092
+            - linxta-rk9pekafka01.garmin.com:9092
+            - linxta-rk9pekafka02.garmin.com:9092
+          user: pids
+          topic: dslog-avro
+        schema_registry:
+          url: https://linxta-pehaproxy00.garmin.com:8085
+        level: debug

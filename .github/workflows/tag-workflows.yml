@@ -1,0 +1,20 @@
+name: Tag Workflows
+
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  build:
+    uses: garmin-tw-mfg-eng/AIDS-Deployment/.github/workflows/build-docker-image.yml@main
+  deploy-linxpa-dl02:
+    needs: [build]
+    uses: garmin-tw-mfg-eng/AIDS-Deployment/.github/workflows/deploy-server.yml@main
+    with:
+      DEPLOY_PROJECT: document-inspection-prod
+      DEPLOY_PATH: /data/AI/projects/document_inspection
+      DEPLOY_FILE: docker-compose.prod.yaml
+      DEPLOY_HOST: linxpa-dl02
+      DEPLOY_ENV_FILE: .env.linxpa-dl02
+    secrets: inherit

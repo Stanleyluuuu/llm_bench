@@ -1,0 +1,13 @@
+name: Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  python-test:
+    uses: garmin-tw-mfg-eng/AIDS-Deployment/.github/workflows/python-test.yml@main
+  ruff-linter:
+    uses: garmin-tw-mfg-eng/AIDS-Deployment/.github/workflows/ruff-linter.yml@main

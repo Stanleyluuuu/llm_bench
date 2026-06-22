@@ -1,0 +1,663 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Default theme: Light (precision-ui light palette — cool neutral).
+     Dark mode opt-in via `.dark` class on <html>. */
+  /*
+   * ╔═══════════════════════════════════════════════════════════════════╗
+   * ║                    DESIGN TOKEN SYSTEM                          ║
+   * ╠═══════════════════════════════════════════════════════════════════╣
+   * ║ 所有顏色都定義在這裡，用 HSL 三值格式（H S% L%，不含 hsl()）。   ║
+   * ║ Tailwind config 會用 hsl(var(--xxx)) 來讀取。                    ║
+   * ║                                                                  ║
+   * ║ 想改顏色？只改這裡的數字，整個網站就會跟著變。                    ║
+   * ║ :root = 淺色模式，.dark = 暗色模式。                             ║
+   * ║                                                                  ║
+   * ║ ── 分類 ──                                                       ║
+   * ║ 基底色：background, card, secondary, accent, border              ║
+   * ║ 文字色：foreground, muted-foreground, primary-foreground         ║
+   * ║ 品牌色：primary, ring                                            ║
+   * ║ 語義色：destructive, success, warning（成功/錯誤/警告）          ║
+   * ║ 元件色：spinner-*, scrollbar-thumb, scrollbar-thumb-hover,     ║
+   * ║         shimmer, shadow-color, shadow-opacity-*,               ║
+   * ║         tooltip-bg, tooltip-fg                                  ║
+   * ╚═══════════════════════════════════════════════════════════════════╝
+   */
+  :root {
+    /* ── 基底色 ─────────────────────────────────────────────────────── */
+    --background: 210 17% 98%;         /* #F9FAFB warm gray */
+    --card: 0 0% 100%;                 /* #FFFFFF */
+    --secondary: 214 22% 93%;          /* #E8EDF5 cool blue-gray */
+    --accent: 214 100% 93%;            /* #DBEAFE blue-100 hover */
+    --border: 214 16% 85%;             /* #CDD5E0 cool gray border */
+
+    /* ── 文字色 ─────────────────────────────────────────────────────── */
+    --foreground: 215 41% 17%;         /* #1E293B deep blue-gray */
+    --primary-foreground: 0 0% 98%;    /* near-white text on primary */
+    --muted-foreground: 215 16% 37%;   /* #4B5768 — WCAG AA 4.5:1 on white */
+    --muted: 214 22% 93%;
+
+    /* ── 品牌色 ─────────────────────────────────────────────────────── */
+    --primary: 216 41% 43%;            /* #41659b slate-blue */
+    --ring: 216 41% 43%;
+
+    /* ── 來源識別 token（builtin / custom badge 用） ─────────────────── */
+    --model-custom: 215 50% 55%;       /* slate-blue, matching Garmin colors */
+    --model-custom-soft: 215 50% 95%;  /* light tinted gray-blue */
+    --model-builtin: 215 19% 47%;      /* #64748b slate-500 */
+    --model-builtin-soft: 210 40% 96%; /* #f1f5f9 slate-100 */
+
+    /* ── 語義色（成功/錯誤/警告） ───────────────────────────────────── */
+    --destructive: 0 84% 60%;          /* #EF4444 red-500 */
+    --destructive-foreground: 0 0% 100%;
+    --success: 160 84% 39%;            /* #10B981 emerald-500 */
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;             /* #F59E0B amber-500 */
+    --warning-foreground: 0 0% 100%;
+
+    /* ── 元件專用 token ─────────────────────────────────────────────── */
+    /* Loading spinner — slate-blue based for GarminManufacturing standard */
+    --spinner-from: 216 41% 55%;       /* soft primary-aligned blue */
+    --spinner-to: 216 30% 82%;         /* very soft blue-200 */
+    --spinner-edge: 0 0% 100%;         /* white */
+    /* Scrollbar */
+    --scrollbar-thumb: 213 18% 78%;    /* #CBD5E1 slate-300 */
+    --scrollbar-thumb-hover: 215 16% 62%; /* #94A3B8 slate-400 */
+    /* Shimmer skeleton */
+    --shimmer: 214 20% 92%;            /* light shimmer highlight */
+    /* Shadow (card elevation) — low-opacity foreground color */
+    --shadow-color: 215 41% 17%;       /* same hue as foreground */
+    --shadow-opacity-sm: 0.04;
+    --shadow-opacity-md: 0.08;
+    /* Tooltip — always dark in both themes (inverted from card) */
+    --tooltip-bg: 215 41% 17%;         /* dark navy, same hue as foreground */
+    --tooltip-fg: 0 0% 98%;            /* near-white text */
+
+    /* Glass panel — light mode uses frosted white */
+    --glass-panel: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(205, 213, 224, 0.8);
+  }
+
+  .dark {
+    /* ── 基底色（暗色） ─────────────────────────────────────────────── */
+    --background: 220 32% 6%;
+    --card: 220 20% 10%;               /* #161B22 GitHub dark */
+    --secondary: 218 28% 11%;
+    --accent: 215 22% 20%;
+    --border: 215 20% 27%;
+
+    /* ── 文字色（暗色） ─────────────────────────────────────────────── */
+    --foreground: 210 15% 93%;
+    --primary-foreground: 222 47% 11%;  /* dark navy text on bright primary */
+    --muted-foreground: 220 8% 65%;    /* #9CA3AF — WCAG AA 4.5:1 on dark bg */
+    --muted: 218 28% 11%;
+
+    /* ── 品牌色（暗色） ─────────────────────────────────────────────── */
+    --primary: 216 41% 60%;            /* softer slate-blue for comfortable reading in dark mode */
+    --ring: 216 41% 60%;
+
+    /* ── 來源識別 token（暗色） ─────────────────────────────────────── */
+    --model-custom: 215 50% 68%;       /* brighter custom model source indicator */
+    --model-custom-soft: 215 30% 16%;
+    --model-builtin: 215 16% 57%;
+    --model-builtin-soft: 218 28% 16%;
+
+    /* ── 語義色（暗色下維持不變，已有足夠對比） ──────────────────────── */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 160 84% 39%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* ── 元件專用 token（暗色） ─────────────────────────────────────── */
+    --spinner-from: 216 41% 60%;       /* softer primary-aligned blue */
+    --spinner-to: 216 30% 45%;         /* dimmer blue */
+    --spinner-edge: 220 20% 10%;       /* match card bg instead of white */
+    --scrollbar-thumb: 215 15% 30%;    /* subtle on dark bg */
+    --scrollbar-thumb-hover: 215 12% 45%; /* brighter on hover */
+    --shimmer: 220 8% 18%;             /* dark shimmer highlight */
+    /* Shadow (dark — higher opacity for visible elevation on dark bg) */
+    --shadow-color: 0 0% 0%;           /* pure black */
+    --shadow-opacity-sm: 0.3;
+    --shadow-opacity-md: 0.35;
+    /* Tooltip — slightly elevated from dark background */
+    --tooltip-bg: 220 20% 20%;         /* elevated dark surface */
+    --tooltip-fg: 210 15% 93%;         /* light text */
+
+    /* Glass panel — dark mode uses frosted dark */
+    --glass-panel: rgba(30, 30, 40, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Material 3 style: 1px border + subtle elevation shadow for all cards.
+     Uses --shadow-color token so one rule works for both light and dark. */
+  .bg-card {
+    box-shadow: 0 1px 3px hsl(var(--shadow-color) / var(--shadow-opacity-sm)),
+                0 1px 2px hsl(var(--shadow-color) / calc(var(--shadow-opacity-sm) * 0.75));
+  }
+
+  /* Focus ring utility for consistency */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  code, kbd, samp, pre, .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  }
+}
+
+@layer utilities {
+  /* Custom scrollbar — uses token so it adapts to light/dark */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--scrollbar-thumb)) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar { width: 4px; height: 4px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; border-radius: 9999px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: hsl(var(--scrollbar-thumb)); border-radius: 9999px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: hsl(var(--scrollbar-thumb-hover)); }
+
+  /* Normalize form input focus ring to 2px — matches action button standard.
+     Specificity (0-2-1) beats Tailwind's focus:ring-1 utility (0-2-0). */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]):focus-visible,
+  textarea:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--ring));
+    border-color: hsl(var(--primary));
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.18s ease both;
+  }
+  .animate-slide-up {
+    animation: slideUpFade 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .animate-scale-in {
+    animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Chevron rotation for expand/collapse */
+  .animate-chevron-open {
+    transform: rotate(180deg);
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .animate-chevron-closed {
+    transform: rotate(0deg);
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Skeleton shimmer — uses --shimmer token, one rule for both themes */
+  .skeleton-shimmer {
+    background: linear-gradient(90deg, transparent 0%, hsl(var(--shimmer)) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+
+  /* GPU-accelerated card hover lift */
+  .hover-lift {
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease;
+    will-change: transform;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px hsl(var(--shadow-color) / var(--shadow-opacity-md));
+  }
+
+  /* Gradient text utility */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(216 41% 80%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass panel utility — consistent backdrop blur, themes via CSS vars */
+  .glass-panel {
+    background: var(--glass-panel);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 0.375rem; /* Max 6px to avoid large rounded corners */
+  }
+
+  /* Brand gradient for accents */
+  .brand-gradient {
+    background: linear-gradient(135deg, #41659b 0%, #7297c7 100%);
+  }
+
+  /* Status dot pulse for active items */
+  .status-dot-active {
+    position: relative;
+  }
+  .status-dot-active::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.4;
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+
+  /* Screen reader only - used by skip-to-content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+/* ─── NeonCheckbox (quiet variant) ───────────────────────────────────────────── */
+/* Touch target 44×44; visible box 20×20; clean fill-on-check, no glow effects. */
+.nc-checkbox {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  outline: none;
+}
+.nc-checkbox:focus-visible .nc-box {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+.nc-frame {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+.nc-box {
+  position: absolute;
+  inset: 0;
+  border: 2px solid hsl(var(--border));
+  border-radius: 4px;
+  background: transparent;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.nc-checkbox:hover .nc-box {
+  border-color: hsl(var(--primary) / 0.65);
+}
+.nc-checkbox.nc-checked .nc-box {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary));
+}
+.nc-check-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.nc-check { width: 14px; height: 14px; }
+.nc-check path {
+  stroke: hsl(var(--primary-foreground));
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  transition: stroke-dashoffset 0.16s ease;
+}
+.nc-checkbox.nc-checked .nc-check path { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .nc-checkbox .nc-box { transition: none; }
+  .nc-checkbox .nc-check path { transition: none; }
+}
+
+/* ─── ThemeSwitch ─────────────────────────────────────────────────────────── */
+/* The ThemeSwitch component now uses Tailwind classes exclusively.
+   The old .ts-switch / .ts-slider / .ts-sun / .ts-moon CSS has been removed.
+   Keeping this comment as a breadcrumb for anyone searching for the old code. */
+
+/* ─── LoadingModal spinner ───────────────────────────────────────────────── */
+.sp-container {
+  position: relative;
+  border-radius: 50%;
+  height: 96px;
+  width: 96px;
+  animation: sp-rotate 1.2s linear infinite, sp-breathe 2s ease-in-out infinite;
+  will-change: transform;
+  background-color: hsl(var(--spinner-from));
+  background-image: linear-gradient(
+    hsl(var(--spinner-from)),
+    hsl(var(--spinner-to)),
+    hsl(var(--spinner-edge))
+  );
+}
+.sp-container span {
+  position: absolute;
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  background-color: hsl(var(--spinner-from));
+  background-image: linear-gradient(
+    hsl(var(--spinner-from)),
+    hsl(var(--spinner-to)),
+    hsl(var(--spinner-edge))
+  );
+}
+.sp-container span:nth-of-type(1) { filter: blur(3px); }
+.sp-container span:nth-of-type(2) { filter: blur(7px); }
+.sp-container span:nth-of-type(3) { filter: blur(14px); }
+.sp-container span:nth-of-type(4) { filter: blur(28px); }
+.sp-container::after {
+  content: "";
+  position: absolute;
+  top: 10px; left: 10px; right: 10px; bottom: 10px;
+  background-color: hsl(var(--card));
+  border: solid 5px hsl(var(--card));
+  border-radius: 50%;
+}
+@keyframes sp-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes sp-breathe {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+@keyframes msg-fade {
+  0%   { opacity: 0; transform: translateY(4px); }
+  15%  { opacity: 1; transform: translateY(0); }
+  85%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-4px); }
+}
+.stage-msg { animation: msg-fade 3s ease both; }
+
+/* ─── Keyframes ───────────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes statusPulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50%      { transform: scale(1.8); opacity: 0; }
+}
+
+/* ─── AddModelButton (.amb-btn) ───────────────────────────────────────────── */
+.amb-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  background: hsl(var(--primary));
+  transition: width 0.2s ease, border-radius 0.2s ease;
+  outline: none;
+  flex-shrink: 0;
+}
+.amb-btn:hover { width: 125px; border-radius: 40px; }
+.amb-btn:active { transform: translate(2px, 2px); }
+.amb-btn:focus-visible { box-shadow: 0 0 0 2px hsl(var(--primary) / 0.5); }
+.amb-sign {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.2s ease;
+  flex-shrink: 0;
+}
+.amb-btn:hover .amb-sign { width: 30%; padding-left: 20px; }
+.amb-text {
+  position: absolute;
+  right: 0;
+  width: 0;
+  opacity: 0;
+  color: hsl(var(--primary-foreground));
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: opacity 0.3s ease, width 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  pointer-events: none;
+}
+.amb-btn:hover .amb-text { opacity: 1; width: 70%; padding-right: 10px; }
+
+/* ─── Progress shimmer ──────────────────────────────────────────────────── */
+/* Solid fill — the width transition on the element handles the animation.
+   Removed the shimmer loop to reduce visual noise on long-running evaluations. */
+.progress-shimmer {
+  background: hsl(var(--primary));
+}
+
+/* ─── Progress bar animated fill ─────────────────────────────────────────── */
+@keyframes progressFill {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+.animate-progress-fill {
+  animation: progressFill 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-scale-in,
+  .skeleton-shimmer,
+  .stage-msg,
+  .sp-container,
+  .animate-chevron-open,
+  .animate-chevron-closed,
+  .hover-lift,
+  .status-dot-active::after {
+    animation: none !important;
+    opacity: 1;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─── Supplemental design tokens (Section 1) ─────────────────────────────── */
+/* These extend the existing HSL system with concrete HEX tokens for components
+   that need deterministic colors (e.g. bbox overlays, score indicators). */
+@layer base {
+  :root {
+    /* Bbox overlay — high-contrast on dark CCTV backgrounds */
+    --bbox-gt: #00E676;         /* Ground truth: fluorescent green solid  */
+    --bbox-pred: #FF3D7F;       /* Prediction: high-chroma pink dashed    */
+
+    /* Score semantic — concrete values for progress bars & numeric badges */
+    --score-high: 160 84% 39%;  /* emerald-500 same as --success          */
+    --score-mid: 38 92% 50%;    /* amber-500 same as --warning             */
+    --score-low: 0 84% 60%;     /* red-500 same as --destructive           */
+
+    /* Card interaction */
+    --card-hover-ring: 0 0 0 2px hsl(var(--primary) / 0.7);
+    --card-selected-ring: 0 0 0 2px hsl(var(--primary));
+
+    /* Tabular numbers on all metric displays */
+    --font-tabular: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  }
+}
+
+/* ─── Tabular numbers for metric / score display ─────────────────────────── */
+.tabular-nums,
+[class*="text-emerald"],
+[class*="text-amber"],
+[class*="text-red"] {
+  font-family: var(--font-tabular) !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* ─── Score progress bar — animated fill on mount ────────────────────────── */
+@keyframes barGrow {
+  from { width: 0; }
+}
+.bar-grow {
+  animation: barGrow 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─── Model card hover & selection ──────────────────────────────────────── */
+.model-card {
+  transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.model-card:hover {
+  transform: translateY(-1px);
+}
+.model-card[data-selected="true"] {
+  box-shadow: var(--card-selected-ring);
+}
+
+/* ─── Segmented control (filter bar) ────────────────────────────────────── */
+.segmented-control {
+  display: inline-flex;
+  border-radius: 6px;
+  border: 1px solid hsl(var(--border));
+  overflow: hidden;
+  background: hsl(var(--secondary));
+}
+.segmented-control button {
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-family: var(--font-tabular);
+  transition: background 0.15s ease, color 0.15s ease;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+}
+.segmented-control button:focus-visible {
+  box-shadow: inset 0 0 0 2px hsl(var(--primary));
+}
+.segmented-control button[data-active="true"] {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 600;
+}
+.segmented-control button:hover:not([data-active="true"]) {
+  background: hsl(var(--accent));
+  color: hsl(var(--foreground));
+}
+
+/* ─── Export button micro style ──────────────────────────────────────────── */
+.export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--font-tabular);
+}
+.export-btn:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--foreground));
+  border-color: hsl(var(--primary) / 0.4);
+}
+.export-btn:active {
+  transform: scale(0.97);
+}
+
+/* ─── Toast notification ─────────────────────────────────────────────────── */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes toastOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(8px) scale(0.96); }
+}
+.toast-enter {
+  animation: toastIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.toast-exit {
+  animation: toastOut 0.18s ease both;
+}
+
+/* ─── Checkbox micro scale bounce ───────────────────────────────────────── */
+@keyframes checkBounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(0.88); }
+  70%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+.checkbox-bounce {
+  animation: checkBounce 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* ─── Coord system label badge ───────────────────────────────────────────── */
+.coord-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.65rem;
+  font-family: var(--font-tabular);
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: hsl(var(--accent));
+  border: 1px solid hsl(var(--border) / 0.6);
+  color: hsl(var(--muted-foreground));
+  letter-spacing: 0.01em;
+}
+
+/* ─── Test-case grid: GT leftmost sticky col + N model cols (16.1) ──────── */
+.testcase-grid {
+  display: grid;
+  gap: 12px;
+  align-items: stretch;
+}
+.testcase-grid__gt-col {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+@media (max-width: 1100px) {
+  .testcase-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .testcase-grid__gt-col {
+    position: static;
+  }
+}
